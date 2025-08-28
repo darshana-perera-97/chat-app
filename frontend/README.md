@@ -1,70 +1,195 @@
-# Getting Started with Create React App
+# ChatApp Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React-based chat application frontend with Google Sign-In integration, real-time messaging, and a beautiful UI built with Tailwind CSS.
+
+## Features
+
+- 🚀 **Modern React 18** with hooks and functional components
+- 🔐 **Google OAuth Integration** for secure authentication
+- 💬 **Real-time Chat Interface** with typing indicators
+- 👥 **User Management** and discovery
+- 🎨 **Beautiful UI** built with Tailwind CSS
+- 📱 **Responsive Design** for all devices
+- 🔄 **Protected Routes** with authentication guards
+- 📁 **Organized Structure** with layouts, pages, and components
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Navbar.jsx      # Main navigation bar
+│   ├── Sidebar.jsx     # Chat sidebar with conversations/users
+│   └── ChatWindow.jsx  # Main chat interface
+├── layouts/            # Layout components
+│   ├── MainLayout.jsx  # Main app layout with nav/sidebar
+│   └── AuthLayout.jsx  # Authentication pages layout
+├── pages/              # Page components
+│   ├── HomePage.jsx    # Welcome/home page
+│   ├── ChatPage.jsx    # Chat interface page
+│   ├── UsersPage.jsx   # User discovery page
+│   └── LoginPage.jsx   # Google Sign-In page
+├── backendURL.js       # Backend API configuration
+├── App.jsx            # Main app component with routing
+├── index.js           # App entry point
+└── index.css          # Global styles and Tailwind imports
+```
+
+## Tech Stack
+
+- **React 18** - Modern React with hooks
+- **React Router 6** - Client-side routing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Heroicons** - Beautiful SVG icons
+- **Fetch API** - HTTP requests to backend
+
+## Prerequisites
+
+- Node.js 16+ and npm
+- Backend server running on port 5055
+- Google OAuth credentials configured
+
+## Installation
+
+1. **Navigate to frontend directory:**
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start development server:**
+   ```bash
+   npm start
+   ```
+
+4. **Open your browser:**
+   Navigate to `http://localhost:3000`
+
+## Configuration
+
+### Backend URL
+
+The backend URL is configured in `src/backendURL.js`. Make sure it matches your backend server:
+
+```javascript
+export const BACKEND_URL = 'http://localhost:5055';
+```
+
+### Google OAuth
+
+Ensure your backend has Google OAuth properly configured with the correct redirect URIs.
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run tests
+- `npm run eject` - Eject from Create React App
 
-### `npm start`
+## Development
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Adding New Components
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Create component in `src/components/`
+2. Import and use in pages or other components
+3. Follow the existing naming conventions
 
-### `npm test`
+### Adding New Pages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Create page in `src/pages/`
+2. Add route in `src/App.jsx`
+3. Update navigation if needed
 
-### `npm run build`
+### Styling
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Use Tailwind CSS utility classes
+- Custom styles go in `src/index.css`
+- Follow the existing design system
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Features in Detail
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Authentication
+- Google OAuth integration
+- Protected routes
+- User session management
+- Automatic redirect to login
 
-### `npm run eject`
+### Chat Interface
+- Real-time messaging
+- Typing indicators
+- Message timestamps
+- File attachment support (UI ready)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### User Management
+- User discovery
+- Profile pictures
+- Online status
+- Search functionality
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Responsive Design
+- Mobile-first approach
+- Tablet and desktop optimized
+- Touch-friendly interface
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API Integration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The frontend communicates with the backend through these endpoints:
 
-## Learn More
+- `GET /auth/profile` - Get current user
+- `GET /api/users` - Get all users
+- `GET /auth/google` - Google OAuth
+- `GET /auth/logout` - User logout
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. **Build the app:**
+   ```bash
+   npm run build
+   ```
 
-### Code Splitting
+2. **Deploy the `build` folder** to your hosting service
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+3. **Update backend URL** in production build if needed
 
-### Analyzing the Bundle Size
+## Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Common Issues
 
-### Making a Progressive Web App
+1. **Backend Connection Error**
+   - Check if backend is running on port 5055
+   - Verify CORS settings in backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. **Google OAuth Issues**
+   - Ensure redirect URIs are correct
+   - Check Google Cloud Console settings
 
-### Advanced Configuration
+3. **Build Errors**
+   - Clear `node_modules` and reinstall
+   - Check Node.js version compatibility
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Development Tips
 
-### Deployment
+- Use browser dev tools for debugging
+- Check console for API errors
+- Verify network requests in Network tab
+- Test on different screen sizes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Contributing
 
-### `npm run build` fails to minify
+1. Follow the existing code structure
+2. Use consistent naming conventions
+3. Add proper error handling
+4. Test on multiple devices
+5. Update documentation as needed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+
+This project is part of the ChatApp application.
+
+---
+
+**Happy Coding! 🚀**
