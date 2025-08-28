@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 
-const MainLayout = () => {
+const MainLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,9 +17,6 @@ const MainLayout = () => {
 
   return (
     <div className="min-vh-100 bg-light">
-      {/* Top Navbar */}
-      <Navbar onMenuClick={toggleSidebar} />
-      
       <div className="d-flex">
         {/* Left Sidebar Navigation */}
         <Sidebar 
@@ -39,7 +35,7 @@ const MainLayout = () => {
         
         {/* Main content area */}
         <main className="flex-grow-1 p-3 p-md-4">
-          <Outlet />
+          {children}
         </main>
       </div>
     </div>

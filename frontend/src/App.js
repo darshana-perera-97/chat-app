@@ -17,7 +17,6 @@ import ProfilePage from './pages/ProfilePage';
 import PostsPage from './pages/PostsPage';
 
 // Components
-import Navbar from './components/Navbar';
 
 // Inner component that can use useNavigate hook
 function AppContent() {
