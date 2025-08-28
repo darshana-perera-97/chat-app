@@ -18,10 +18,11 @@ const MainLayout = () => {
 
   return (
     <div className="min-vh-100 bg-light">
+      {/* Top Navbar */}
       <Navbar onMenuClick={toggleSidebar} />
       
       <div className="d-flex">
-        {/* Sidebar */}
+        {/* Left Sidebar Navigation */}
         <Sidebar 
           isOpen={sidebarOpen} 
           onClose={closeSidebar}
@@ -31,12 +32,12 @@ const MainLayout = () => {
         {/* Overlay for mobile */}
         {sidebarOpen && (
           <div 
-            className="sidebar-overlay show d-md-none" 
+            className="sidebar-overlay show d-lg-none" 
             onClick={closeSidebar}
           ></div>
         )}
         
-        {/* Main content */}
+        {/* Main content area */}
         <main className="flex-grow-1 p-3 p-md-4">
           <Outlet />
         </main>

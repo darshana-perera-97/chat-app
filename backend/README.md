@@ -54,6 +54,10 @@ npm start
 - `GET /` - API information and available endpoints
 - `GET /api/users` - Get all registered users (requires authentication)
 
+### Group Chat
+- `GET /api/groupchat` - Get all group chat messages (requires authentication)
+- `POST /api/groupchat` - Send a message to group chat (requires authentication)
+
 ## User Registration Fields
 
 When registering a new user, the following fields are required:
@@ -67,7 +71,24 @@ When registering a new user, the following fields are required:
 
 ## Data Storage
 
+### User Data
 User data is stored in `./data/users.json` as a JSON array. Each user object contains:
+
+### Group Chat Data
+Group chat messages are stored in `./data/grpchat.json` as a JSON array. Each message object contains:
+
+```json
+{
+  "id": "unique-message-id",
+  "senderId": "user-id",
+  "senderName": "John Doe",
+  "senderUsername": "johndoe",
+  "message": "Hello everyone!",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "date": "1/1/2024",
+  "time": "12:00:00 AM"
+}
+```
 
 ```json
 {
@@ -91,7 +112,8 @@ backend/
 ├── README.md            # This file
 ├── .env                 # Environment variables (create this)
 └── data/                # Data storage directory
-    └── users.json       # User data file
+    ├── users.json       # User data file
+    └── grpchat.json     # Group chat messages file
 ```
 
 ## Security Features
@@ -110,6 +132,9 @@ backend/
 4. Test login: `POST /auth/login` with username/email and password
 5. Check user data in `./data/users.json`
 6. View all users: `GET /api/users` (requires authentication)
+7. Test group chat: `POST /api/groupchat` with message data (requires authentication)
+8. View group chat messages: `GET /api/groupchat` (requires authentication)
+9. Check chat data in `./data/grpchat.json`
 
 ## Frontend Integration
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL, API_ENDPOINTS } from '../backendURL';
+import { clearUserData } from '../utils/localStorage';
 import { 
   BellIcon, 
   MagnifyingGlassIcon,
@@ -37,10 +38,19 @@ const Navbar = ({ onMenuClick }) => {
       await fetch(API_ENDPOINTS.LOGOUT, {
         credentials: 'include'
       });
+      
+      // Clear user data from local storage
+      clearUserData();
+      
       setUser(null);
       navigate('/login');
     } catch (error) {
       console.error('Logout failed:', error);
+      
+      // Even if logout fails, clear local storage and redirect
+      clearUserData();
+      setUser(null);
+      navigate('/login');
     }
   };
 
@@ -49,7 +59,7 @@ const Navbar = ({ onMenuClick }) => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom">
+         <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom" style={{borderColor: '#e9edef'}}>
       <div className="container-fluid">
         {/* Logo and Mobile Menu Button */}
         <div className="d-flex align-items-center">
@@ -60,7 +70,7 @@ const Navbar = ({ onMenuClick }) => {
           >
             <Bars3Icon className="h-5 w-5" />
           </button>
-          <h1 className="navbar-brand mb-0 h1 fw-bold text-primary">ChatApp</h1>
+                     <h1 className="navbar-brand mb-0 h1 fw-bold" style={{color: '#00a884'}}>ChatApp</h1>
         </div>
 
         {/* Search Bar - Hidden on mobile */}
@@ -105,7 +115,7 @@ const Navbar = ({ onMenuClick }) => {
                 ) : (
                   <UserCircleIcon className="h-5 w-5 me-2 text-muted" />
                 )}
-                <span className="d-none d-sm-inline text-dark fw-medium">{user.name}</span>
+                                 <span className="d-none d-sm-inline text-dark fw-medium">{user.firstName} {user.lastName}</span>
               </button>
 
               <ul className={`dropdown-menu dropdown-menu-end ${isProfileOpen ? 'show' : ''}`}>

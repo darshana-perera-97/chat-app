@@ -244,6 +244,72 @@ app.get('/api/users', authenticateUser, (req, res) => {
   }
 });
 
+// Group Chat API
+const groupChatFile = path.join(dataDir, 'grpchat.json');
+
+// Initialize group chat file if it doesn't exist
+if (!fs.existsSync(groupChatFile)) {
+  fs.writeFileSync(groupChatFile, JSON.stringify([], null, 2));
+}
+
+// Get all group chat messages
+app.get('/api/groupchat', authenticateUser, (req, res) => {
+  try {
+    const chatData = JSON.parse(fs.readFileSync(groupChatFile, 'utf8'));
+    res.json({ message: 'Group chat messages retrieved successfully', messages: chatData });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to read group chat data' });
+  }
+});
+
+// Send a message to group chat
+app.post('/api/groupchat', authenticateUser, async (req, res) => {
+  try {
+    const { message } = req.body;
+    
+    if (!message || message.trim().length === 0) {
+      return res.status(400).json({ error: 'Message cannot be empty' });
+    }
+
+    // Get user data for the sender
+    const usersData = JSON.parse(fs.readFileSync(usersFile, 'utf8'));
+    const sender = usersData.find(u => u.id === req.session.userId);
+    
+    if (!sender) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const newMessage = {
+      id: Date.now().toString(),
+      senderId: sender.id,
+      senderName: `${sender.firstName} ${sender.lastName}`,
+      senderUsername: sender.username,
+      message: message.trim(),
+      timestamp: new Date().toISOString(),
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString()
+    };
+
+    const chatData = JSON.parse(fs.readFileSync(groupChatFile, 'utf8'));
+    chatData.push(newMessage);
+    
+    // Keep only last 1000 messages to prevent file from getting too large
+    if (chatData.length > 1000) {
+      chatData.splice(0, chatData.length - 1000);
+    }
+    
+    fs.writeFileSync(groupChatFile, JSON.stringify(chatData, null, 2));
+
+    res.status(201).json({ 
+      message: 'Message sent successfully', 
+      chatMessage: newMessage 
+    });
+  } catch (error) {
+    console.error('Send message error:', error);
+    res.status(500).json({ error: 'Failed to send message' });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on port ${PORT}`);

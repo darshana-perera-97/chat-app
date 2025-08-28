@@ -12,6 +12,9 @@ export const API_ENDPOINTS = {
   // Data
   USERS: `${BACKEND_URL}/api/users`,
   ROOT: `${BACKEND_URL}/`,
+  
+  // Group Chat
+  GROUP_CHAT: `${BACKEND_URL}/api/groupchat`,
 };
 
 // WebSocket URL (for future real-time chat)
